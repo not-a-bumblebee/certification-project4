@@ -166,3 +166,11 @@ ul {
   width: fit-content;
   padding: 2rem;
 }
+
+.list-card{
+  width: fit-content;
+  background: #000;
+}
+svg{
+  cursor: pointer;
+}

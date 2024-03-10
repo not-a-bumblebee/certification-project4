@@ -10,9 +10,13 @@ export const loadSlice = createSlice({
     reducers: {
         addList: (state, action) => {
             //action.payload = json file
-            state.loaded = action.payload
+            state.loaded = [...state.loaded, action.payload]
         },
         deleteList: (state, action) => {
+            //action.payload = list index
+            state.loaded = action.payload
+        },
+        updateList: (state, action) => {
             //action.payload = list index
             state.loaded = action.payload
         },
@@ -28,10 +32,10 @@ export const loadSlice = createSlice({
             //action.payload = [list index, item index]
             state.search = action.payload
         },
-        
+
 
     }
 })
 
-export const { updateSearch, searchResults, deleteItem, updateItem } = searchSlice.actions
-export default searchSlice.reducer
+export const { addList, deleteList, updateList, addItem, updateItem, deleteItem } = loadSlice.actions
+export default loadSlice.reducer
