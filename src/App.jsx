@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -12,12 +12,23 @@ import { addList, deleteList, updateList } from './components/part3Slice'
 
 function App() {
   const [createList, setCreateList] = useState(null)
+  const [modal, setModal] = useState(null)
+
+  const listNameRef = useRef(null)
 
   const redux = useSelector(state => state.load)
   const dispatch = useDispatch()
   console.log(redux);
 
   const handleCreate = () => {
+    let name = listNameRef.current.value
+    let newList = {
+      name,
+      quotes: []
+    }
+    dispatch(addList(newList))
+    console.log("Creating new list " + name);
+    setModal(null)
 
   }
 
@@ -26,7 +37,6 @@ function App() {
     JSON.stringify(json)
 
     const blob = new Blob([JSON.stringify(json)], { type: 'application/json' })
-    const url = URL.createObjectURL(blob);
 
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
@@ -42,8 +52,14 @@ function App() {
 
   const handleEdit = (index) => {
 
+    console.log("Editing " + listNameRef.current.value);
+
+    dispatch(updateList([index, listNameRef.current.value]))
+    setModal(null)
+
   }
   const handleDelete = (index) => {
+    console.log("Deleting");
     dispatch(deleteList(index))
 
   }
@@ -86,7 +102,7 @@ function App() {
         <h2>{name}</h2>
         <p>Quotes: ({quant})</p>
         <div className='card-buttons'>
-          <svg onClick={handleEdit} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+          <svg onClick={() => setModal({ name, index })} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
           </svg>
           <svg onClick={() => handleDownload(index)} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -111,7 +127,7 @@ function App() {
         })}
       </div>
       <div className='new-list'>
-        <div onClick={() => setCreateList(true)}>Create</div>
+        <div onClick={() => setModal(true)}>Create</div>
         <div>-------</div>
         <input type='file' accept=".json" onChange={handleLoad} />
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -126,13 +142,14 @@ function App() {
 
       </div>
 
-      {createList && (
+      {/* Modal: Create/Edit*/}
+      {modal && (
         <div className="modal-bg">
-          <div onClick={() => setCreateList(null)} className="modal-1" />
+          <div onClick={() => setModal(null)} className="modal-1" />
           <div className="modal-body">
             <label htmlFor="">list name</label>
-            <input type="text" />
-            <button onClick={handleCreate}>Create</button>
+            <input ref={listNameRef} type="text" defaultValue={modal?.name || ""} />
+            <button onClick={() => modal === true ? handleCreate() : handleEdit(modal.index)}>{modal === true ? "Create" : "Edit"}</button>
           </div>
         </div>
       )}

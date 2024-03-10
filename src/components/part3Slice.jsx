@@ -14,11 +14,19 @@ export const loadSlice = createSlice({
         },
         deleteList: (state, action) => {
             //action.payload = list index
-            state.loaded = action.payload
+
+            state.loaded.splice(action.payload, 1)
+
+            state.loaded = state.loaded
+
         },
         updateList: (state, action) => {
-            //action.payload = list index
-            state.loaded = action.payload
+            //action.payload = [list index, new name]
+            let temp = state.loaded
+            console.log(temp, action.payload);
+            temp[action.payload[0]].name = action.payload[1]
+
+            state.loaded = [...temp]
         },
         addItem: (state, action) => {
             //action.payload = list index
