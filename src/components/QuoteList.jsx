@@ -1,39 +1,43 @@
 import { useSelector, useDispatch } from "react-redux"
-import { searchResults, updateSearch, deleteItem, updateItem } from "./searchSlice"
 import axios from "axios"
-import AddQuote from "./AddQuote"
 import { useState } from "react"
+import { useParams } from "react-router-dom"
+import Banner from "./Banner"
+import AddQuote from './AddQuote'
 
 export default function QuoteList() {
-    const reduxa = useSelector(state => state.search)
+    let { listId } = useParams()
+    const redux = useSelector(state => state.load)
     const dispatch = useDispatch()
 
     const [editData, setEditData] = useState(null)
 
     // Fetched items include: author , quote, submission date, and quote id
-
+    console.log(listId, redux);
+    // When Clicking the Edit button
     const handleEdit = (author, quote, id, index) => {
         setEditData({ author, quote, id, index })
 
     }
 
+    //Handles the submit upon editing
     const handleUpdateItem = async (newAuthor, newQuote) => {
-        
 
-        let body = {
-            ...(newAuthor === editData.author ? {} : { author: newAuthor.trim().toUpperCase() }),
-            ...(newQuote === editData.quote ? {} : { quote: newQuote.trim() })
+        // If no changes or everything is empty for some reason.
+        if ((newAuthor === editData.author || newAuthor == false) && (newQuote === editData.quote || newQuote == false)) {
+            setEditData(null);
+            return
+
         }
 
-        let res = await axios('http://localhost:3001/api/update/' + editData.id, { method: 'put', data: body })
 
         console.log(res);
 
-        let newShit = reduxa.results
-        newShit[editData.index].author.name = newAuthor === handleEdit.author ? handleEdit.author : newAuthor
-        newShit[editData.index].text = newQuote === handleEdit.quote ? handleEdit.quote : newQuote
+        let newShit = redux.loaded
+        newShit[listId].quotes[editData.index].author = newAuthor
+        newShit[listId].quotes[editData.index].quote = newQuote
 
-        dispatch(updateItem([editData.index, newShit]))
+        dispatch(updateItem([listId, newShit]))
 
 
     }
@@ -57,38 +61,46 @@ export default function QuoteList() {
     }
 
     return (
-        <div className="list-container">
-            <div className="stats">
+        <>
+            <Banner />
+
+            <div className="list-container">
+                <div className="stats">
+
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Quote</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ResItem author={'frank'} quote={"ive covered wars ya know?"} />
+                        <ResItem author={'frank'} quote={"ive covered wars ya know?"} />
+                        <ResItem author={'frank'} quote={"ive covered wars ya know?"} />
+                        <ResItem author={'frank'} quote={"ive covered wars ya know?"} />
+                        <ResItem author={'frank'} quote={"ive covered wars ya know?"} />
+                        {redux.loaded[listId].quotes && redux.loaded[listId].quotes.map((x, i) => {
+                            console.log(x);
+                            return (<ResItem author={x.author} quote={x.quote} quoteId={x.id} index={i} />)
+                        })}
+                    </tbody>
+                </table>
+                {editData &&
+                    (<div className="modal-bg">
+                        <div onClick={() => setEditData(null)} className="modal-1" />
+                        <div className="modal-body">
+                            <AddQuote author={editData.author} quote={editData.quote} handleSubmit={handleUpdateItem} />
+                        </div>
+
+                    </div>)}
+
+                <AddQuote />
+
+
 
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Quote</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <ResItem author={'frank'} quote={"ive covered wars ya know?"} />
-                    <ResItem author={'frank'} quote={"ive covered wars ya know?"} />
-                    <ResItem author={'frank'} quote={"ive covered wars ya know?"} />
-                    <ResItem author={'frank'} quote={"ive covered wars ya know?"} />
-                    <ResItem author={'frank'} quote={"ive covered wars ya know?"} />
-                    {reduxa.results && reduxa.results.map((x, i) => {
-
-                        return (<ResItem author={x.author.name} quote={x.text} quoteId={x.id} index={i} date={new Date(x.date).toDateString()} />)
-                    })}
-                </tbody>
-            </table>
-            {editData &&
-                (<div className="modal-bg">
-                    <div onClick={() => setEditData(null)} className="modal-1" />
-                    <div className="modal-body">
-                        <AddQuote author={editData.author} quote={editData.quote} handleSubmit={handleUpdateItem} />
-                    </div>
-
-                </div>)}
-
-        </div>
+        </>
     )
 }

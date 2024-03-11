@@ -1,17 +1,15 @@
 import { useRef, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.css'
-import Header from './components/Header'
-import AddQuote from './components/AddQuote'
-import Home from './components/Home'
 import QuoteList from './components/QuoteList'
 import Banner from './components/Banner'
 import { useDispatch, useSelector } from 'react-redux'
 import { addList, deleteList, updateList } from './components/part3Slice'
+import { useNavigate } from 'react-router-dom'
 
 function App() {
-  const [createList, setCreateList] = useState(null)
+  let navigate = useNavigate();
+
   const [modal, setModal] = useState(null)
 
   const listNameRef = useRef(null)
@@ -98,7 +96,7 @@ function App() {
 
   const ListCard = ({ name, quant, index }) => {
     return (
-      <div className='list-card'>
+      <div className='list-card' onClick={() => navigate("/app/list/" + index)}>
         <h2>{name}</h2>
         <p>Quotes: ({quant})</p>
         <div className='card-buttons'>
@@ -120,7 +118,7 @@ function App() {
   return (
     <>
       <Banner />
-      <QuoteList />
+      {/* <QuoteList /> */}
       <div className='list-container'>
         {redux.loaded.length > 0 && redux.loaded.map((x, i) => {
           return <ListCard name={x.name} quant={x.quotes.length} index={i} key={x.name} />

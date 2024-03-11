@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useRef,useEffect } from "react"
+import { useRef, useEffect } from "react"
 
 export default function AddQuote({ author, quote, handleSubmit }) {
 

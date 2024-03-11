@@ -8,6 +8,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import Contact from './components/Contact.jsx'
 import Home from './components/Home.jsx'
 import QuoteList from './components/QuoteList.jsx'
+import Banner from './components/Banner.jsx'
 
 const router = createBrowserRouter([
   {
@@ -21,12 +22,10 @@ const router = createBrowserRouter([
   {
     path: "/app",
     element: <App />,
-    children: [
-      {
-        path: "lists/:listId",
-        element: <QuoteList />,
-      },
-    ],
+  },
+  {
+    path: "/app/list/:listId",
+    element: <QuoteList />,
   }
 ]);
 

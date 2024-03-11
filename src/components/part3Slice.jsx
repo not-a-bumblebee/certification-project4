@@ -29,16 +29,22 @@ export const loadSlice = createSlice({
             state.loaded = [...temp]
         },
         addItem: (state, action) => {
-            //action.payload = list index
-            state.search = action.payload
+            //action.payload = [list index , quote{author, category, quote}]
+            let temp = state.loaded;
+            temp[action.payload[0]].quotes.push(action.payload[1])
+            state.loaded = [...temp]
         },
         updateItem: (state, action) => {
             //action.payload = [list index, item index, {changes} ]
-            state.search = action.payload
+            let temp = state.loaded;
+            temp[action.payload[0]].quotes[action.payload[1]] = action.payload[2]
+            state.loaded = [...temp]
         },
         deleteItem: (state, action) => {
             //action.payload = [list index, item index]
-            state.search = action.payload
+            let temp = state.loaded;
+            temp[action.payload[0]].quotes.splice(action.payload[1], 1)
+            state.loaded = [...temp]
         },
 
 
