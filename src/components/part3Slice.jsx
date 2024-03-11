@@ -36,6 +36,7 @@ export const loadSlice = createSlice({
         },
         updateItem: (state, action) => {
             //action.payload = [list index, item index, {changes} ]
+            console.log(action.payload);
             let temp = state.loaded;
             temp[action.payload[0]].quotes[action.payload[1]] = action.payload[2]
             state.loaded = [...temp]

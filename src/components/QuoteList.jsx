@@ -1,9 +1,9 @@
 import { useSelector, useDispatch } from "react-redux"
-import axios from "axios"
 import { useState } from "react"
 import { useParams } from "react-router-dom"
 import Banner from "./Banner"
 import AddQuote from './AddQuote'
+import { addItem, deleteItem, updateItem } from "./part3Slice"
 
 export default function QuoteList() {
     let { listId } = useParams()
@@ -14,48 +14,81 @@ export default function QuoteList() {
 
     // Fetched items include: author , quote, submission date, and quote id
     console.log(listId, redux);
+
+    const handleCreate = (author, quote, category) => {
+        console.log("adding new quote");
+
+        author = author.trim();
+        quote = quote.trim();
+        category = category.trim();
+
+        if(author ==false || quote==false || category==false){
+            console.log("nvm nothing to add");
+            return
+        }
+
+        let newShit = {
+            quote,
+            author,
+            category
+        }
+
+        dispatch(addItem([parseInt(listId), newShit]))
+
+
+
+    }
+
     // When Clicking the Edit button
-    const handleEdit = (author, quote, id, index) => {
-        setEditData({ author, quote, id, index })
+    const handleEdit = (author, quote, category, index) => {
+        setEditData({ author, quote, category, index })
 
     }
 
     //Handles the submit upon editing
-    const handleUpdateItem = async (newAuthor, newQuote) => {
+    const handleUpdateItem = async (newAuthor, newQuote, newCategory) => {
+        newAuthor = newAuthor.trim();
+        newQuote = newQuote.trim();
+        newCategory = newCategory.trim();
+        console.log("updating quote");
 
         // If no changes or everything is empty for some reason.
-        if ((newAuthor === editData.author || newAuthor == false) && (newQuote === editData.quote || newQuote == false)) {
+        if ((newAuthor === editData.author || newAuthor == false) && (newQuote === editData.quote || newQuote == false) && (newCategory === editData.category || newCategory == false)) {
+            console.log("Changing nothing");
             setEditData(null);
             return
 
         }
 
 
-        console.log(res);
+        let newShit = {
+            quote: newQuote,
+            author: newAuthor,
+            category: newCategory
+        }
+        console.log(editData);
+        dispatch(updateItem([parseInt(listId), editData.index, newShit]))
+        setEditData(null);
 
-        let newShit = redux.loaded
-        newShit[listId].quotes[editData.index].author = newAuthor
-        newShit[listId].quotes[editData.index].quote = newQuote
-
-        dispatch(updateItem([listId, newShit]))
 
 
     }
 
-    const deleteItem = async (id, index) => {
-        let res = await axios('http://localhost:3001/api/delete/' + id, { method: 'delete' })
+    const handleItem = (index) => {
+        console.log("deleting item");
 
-        dispatch(deleteItem(index))
+        dispatch(deleteItem([parseInt(listId), index]))
     }
 
-    const ResItem = ({ author, quote, quoteId, index }) => {
+    const ResItem = ({ author, quote, category, index }) => {
 
         return (
             <tr>
                 <td>{author}</td>
                 <td>"{quote}"</td>
-                <td className="green" onClick={() => handleEdit(author, quote, quoteId, index)}>EDIT</td>
-                <td className="red" onClick={() => deleteItem(quoteId, index)}>DELETE</td>
+                <td>{category}</td>
+                <td className="green" onClick={() => handleEdit(author, quote, category, index)}>EDIT</td>
+                <td className="red" onClick={() => handleItem(index)}>DELETE</td>
             </tr>
         )
     }
@@ -73,6 +106,7 @@ export default function QuoteList() {
                         <tr>
                             <th>Name</th>
                             <th>Quote</th>
+                            <th>Category</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -83,7 +117,7 @@ export default function QuoteList() {
                         <ResItem author={'frank'} quote={"ive covered wars ya know?"} />
                         {redux.loaded[listId].quotes && redux.loaded[listId].quotes.map((x, i) => {
                             console.log(x);
-                            return (<ResItem author={x.author} quote={x.quote} quoteId={x.id} index={i} />)
+                            return (<ResItem author={x.author} quote={x.quote} category={x.category} index={i} />)
                         })}
                     </tbody>
                 </table>
@@ -91,12 +125,12 @@ export default function QuoteList() {
                     (<div className="modal-bg">
                         <div onClick={() => setEditData(null)} className="modal-1" />
                         <div className="modal-body">
-                            <AddQuote author={editData.author} quote={editData.quote} handleSubmit={handleUpdateItem} />
+                            <AddQuote author={editData.author} category={editData.category} quote={editData.quote} handleSubmit={handleUpdateItem} />
                         </div>
 
                     </div>)}
 
-                <AddQuote />
+                <AddQuote handleSubmit={handleCreate} />
 
 
 

@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react'
 
 import './App.css'
-import QuoteList from './components/QuoteList'
 import Banner from './components/Banner'
 import { useDispatch, useSelector } from 'react-redux'
 import { addList, deleteList, updateList } from './components/part3Slice'
@@ -118,7 +117,6 @@ function App() {
   return (
     <>
       <Banner />
-      {/* <QuoteList /> */}
       <div className='list-container'>
         {redux.loaded.length > 0 && redux.loaded.map((x, i) => {
           return <ListCard name={x.name} quant={x.quotes.length} index={i} key={x.name} />

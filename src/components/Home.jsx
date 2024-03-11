@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import Banner from "./Banner";
-import Header from "./Header";
 
 export default function Home() {
     const redux = useSelector(state => state.load)
