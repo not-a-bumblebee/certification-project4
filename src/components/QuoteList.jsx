@@ -5,6 +5,7 @@ import Banner from "./Banner"
 import AddQuote from './AddQuote'
 import { addItem, deleteItem, updateItem } from "./part3Slice"
 import axios from "axios"
+import Back from "./Back"
 
 export default function QuoteList() {
     let { listId } = useParams()
@@ -145,6 +146,7 @@ export default function QuoteList() {
     return (
         <>
             <Banner />
+            <Back destination={"/app"} />
             <div className="random-container">
                 {random && (
                     <>

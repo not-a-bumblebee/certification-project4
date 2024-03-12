@@ -5,13 +5,18 @@ export default function Contact() {
 
     return (
         <div>
-            <Banner/>
-            <Back />
-            <form className="flex">
-                <input type="email" />
-                <textarea/>
-                <button>submit</button>
-            </form>
+            <Banner />
+            <Back destination={"/"} />
+            <div className="contact-container">
+
+                <form className="flex">
+                    <label htmlFor="">Email:</label>
+                    <input type="email" required />
+                    <label htmlFor="">Message:</label>
+                    <textarea required />
+                    <button>submit</button>
+                </form>
+            </div>
         </div>
     )
 }

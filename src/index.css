@@ -243,3 +243,19 @@ svg {
 .title{
   text-align: center;
 }
+
+.contact-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.back{
+  position: absolute;
+  top: 20%;
+  left: 3%;
+}
+.back svg{
+  width: 4rem;
+} 

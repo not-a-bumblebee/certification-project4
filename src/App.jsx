@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addList, deleteList, loadMasterList, updateList } from './components/part3Slice'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import Back from './components/Back'
 
 function App() {
   let navigate = useNavigate();
@@ -175,6 +176,7 @@ function App() {
   return (
     <>
       <Banner />
+      <Back destination={"/"} />
       {/* Modal: Create/Edit*/}
       {modal && (
         <div className="modal-bg">
