@@ -24,7 +24,7 @@ body {
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #1a1a1a;
   text-decoration: inherit;
 }
 
@@ -138,15 +138,17 @@ header {
   display: flex;
   justify-content: flex-start;
   flex-direction: row;
-  background: blue;
+  background: #f4f1ea;
+  box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.15);
 }
 
 ul {
   display: flex;
   flex-direction: row;
   justify-content: baseline;
-  background: #000;
+  /* background: #000; */
 
+  margin-left: 5rem;
   gap: 10rem;
 }
 
@@ -164,11 +166,13 @@ ul {
   width: fit-content;
   padding: 2rem;
 }
-.master-list{
+
+.master-list {
   border-style: dashed;
   padding: 2rem;
 
 }
+
 /* /APP */
 .list-container {
   background: #eeaaaa;
@@ -188,7 +192,7 @@ ul {
   /* Add smooth transition */
   cursor: pointer;
   overflow: hidden;
-  padding: 1rem ;
+  padding: 1rem;
   /* Ensure shadows are visible */
 }
 
@@ -196,11 +200,12 @@ ul {
   transform: translateY(-4px);
   /* Move card up slightly on hover */
 }
-.card-title{
+
+.card-title {
   text-transform: capitalize;
 }
 
-.main-container{
+.main-container {
   margin-left: 12rem;
   margin-top: 4rem;
 }
@@ -209,18 +214,18 @@ svg {
   cursor: pointer;
 }
 
-.list-option-container{
+.list-option-container {
   display: flex;
   gap: 2rem;
-  
+
 }
 
-.flex{
+.flex {
   display: flex;
   flex-direction: column;
 }
 
-.random-container{
+.random-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -228,34 +233,48 @@ svg {
   font-size: xx-large;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-.quote-text{
+
+.quote-text {
   margin: 0;
 }
-.quote-author{
+
+.quote-author {
   font-size: x-large;
   margin: 0;
   margin-left: 8rem;
 }
-.rand-button{
+
+.rand-button {
   font-size: medium;
   padding-top: 1rem;
 }
-.title{
+
+.title {
   text-align: center;
 }
 
-.contact-container{
+.contact-container {
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 2rem;
 }
 
-.back{
+.back {
   position: absolute;
   top: 20%;
   left: 3%;
 }
-.back svg{
+
+.back svg {
   width: 4rem;
-} 
+  color: #bd5555;
+}
+
+.list-card svg {
+  width: 2rem;
+}
+
+.quote-table{
+  margin: 6rem;
+}

@@ -150,8 +150,8 @@ export default function QuoteList() {
             <div className="random-container">
                 {random && (
                     <>
-                        <p className="quote-text">"{random[0][random[1]].quote}"</p>
-                        <p className="quote-author">--{random[0][random[1]].author}</p>
+                        <p className="quote-text">"{random[0][random[1]]?.quote}"</p>
+                        <p className="quote-author">--{random[0][random[1]]?.author}</p>
 
                         <button className="rand-button" onClick={handleRand}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -166,7 +166,7 @@ export default function QuoteList() {
             </div>
 
             <h2 className="title">{redux.loaded[listId].name}</h2>
-            <div className="list-container">
+            <div className="quote-table">
                 <table>
                     <thead>
                         <tr>
