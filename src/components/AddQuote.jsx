@@ -31,7 +31,7 @@ export default function AddQuote({ author, quote, category, handleSubmit }) {
 
     return (
         <div>
-            <form action="">
+            <form className="flex">
                 <label htmlFor="">author</label>
                 <input type="text" ref={authorRef} />
                 <label htmlFor="">category</label>

@@ -28,6 +28,9 @@ export const loadSlice = createSlice({
 
             state.loaded = [...temp]
         },
+        loadMasterList: (state, action) => {
+            state.loaded = action.payload;
+        },
         addItem: (state, action) => {
             //action.payload = [list index , quote{author, category, quote}]
             let temp = state.loaded;
@@ -52,5 +55,5 @@ export const loadSlice = createSlice({
     }
 })
 
-export const { addList, deleteList, updateList, addItem, updateItem, deleteItem } = loadSlice.actions
+export const { addList, deleteList, updateList, loadMasterList, addItem, updateItem, deleteItem } = loadSlice.actions
 export default loadSlice.reducer

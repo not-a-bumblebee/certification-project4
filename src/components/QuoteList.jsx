@@ -1,9 +1,10 @@
 import { useSelector, useDispatch } from "react-redux"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import Banner from "./Banner"
 import AddQuote from './AddQuote'
 import { addItem, deleteItem, updateItem } from "./part3Slice"
+import axios from "axios"
 
 export default function QuoteList() {
     let { listId } = useParams()
@@ -11,9 +12,35 @@ export default function QuoteList() {
     const dispatch = useDispatch()
 
     const [editData, setEditData] = useState(null)
+    const [random, setRandom] = useState(null)
+    console.log();
+    useEffect(() => {
+        console.log("Use effects activated");
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+        let quotes = [...redux.loaded[listId].quotes]
+        console.log(quotes);
+        shuffleArray(quotes)
+        console.log(quotes);
+        setRandom([quotes, 0])
+        if (redux.loaded.length > 0) {
+            handleSave()
+        }
+
+    }, [redux.loaded[listId]])
+
 
     // Fetched items include: author , quote, submission date, and quote id
     console.log(listId, redux);
+
+    const handleSave = async () => {
+        console.log("saving data");
+        let res = await axios("http://localhost:3001/api/save", { method: "post", data: redux.loaded })
+    }
 
     const handleCreate = (author, quote, category) => {
         console.log("adding new quote");
@@ -22,7 +49,7 @@ export default function QuoteList() {
         quote = quote.trim();
         category = category.trim();
 
-        if(author ==false || quote==false || category==false){
+        if (author == false || quote == false || category == false) {
             console.log("nvm nothing to add");
             return
         }
@@ -93,14 +120,51 @@ export default function QuoteList() {
         )
     }
 
+    const handleRand = () => {
+        console.log("Rand iNdex", random[1], random[0].length);
+        if (random[1] === random[0].length - 1) {
+            setRandom(x => {
+                let temp = [...x];
+                temp[1] = 0;
+                return [...temp]
+            })
+        }
+        else {
+            setRandom(x => {
+                let temp = [...x]
+                temp[1] += 1
+                console.log("index to be: " + temp[1]);
+                return [...temp]
+            })
+        }
+        console.log("Rand iNdex AFTER", random[1]);
+
+
+    }
+
     return (
         <>
             <Banner />
+            <div className="random-container">
+                {random && (
+                    <>
+                        <p className="quote-text">"{random[0][random[1]].quote}"</p>
+                        <p className="quote-author">--{random[0][random[1]].author}</p>
 
+                        <button className="rand-button" onClick={handleRand}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+                            </svg>
+
+                        </button>
+
+                    </>
+                )}
+
+            </div>
+
+            <h2 className="title">{redux.loaded[listId].name}</h2>
             <div className="list-container">
-                <div className="stats">
-
-                </div>
                 <table>
                     <thead>
                         <tr>
@@ -110,11 +174,6 @@ export default function QuoteList() {
                         </tr>
                     </thead>
                     <tbody>
-                        <ResItem author={'frank'} quote={"ive covered wars ya know?"} />
-                        <ResItem author={'frank'} quote={"ive covered wars ya know?"} />
-                        <ResItem author={'frank'} quote={"ive covered wars ya know?"} />
-                        <ResItem author={'frank'} quote={"ive covered wars ya know?"} />
-                        <ResItem author={'frank'} quote={"ive covered wars ya know?"} />
                         {redux.loaded[listId].quotes && redux.loaded[listId].quotes.map((x, i) => {
                             console.log(x);
                             return (<ResItem author={x.author} quote={x.quote} category={x.category} index={i} />)
@@ -135,6 +194,8 @@ export default function QuoteList() {
 
 
             </div>
+
+
         </>
     )
 }

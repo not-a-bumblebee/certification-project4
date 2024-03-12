@@ -1,9 +1,33 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Banner from "./Banner";
+import { useEffect } from "react";
+import axios from "axios";
+import { loadMasterList } from "./part3Slice";
+
 
 export default function Home() {
     const redux = useSelector(state => state.load)
+    const dispatch = useDispatch()
     console.log(redux);
+
+    //loads the json from the backend
+    const handleFetch = async () => {
+        let res = await axios("http://localhost:3001/api/load")
+
+        console.log(res);
+        dispatch(loadMasterList(res.data))
+
+
+    }
+
+    useEffect(() => {
+        if(redux.loaded.length ==0){
+            handleFetch()
+        }
+
+    }, [])
+
+
     return (
         <>
             <Banner />

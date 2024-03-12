@@ -7,7 +7,7 @@ export default function Contact() {
         <div>
             <Banner/>
             <Back />
-            <form>
+            <form className="flex">
                 <input type="email" />
                 <textarea/>
                 <button>submit</button>

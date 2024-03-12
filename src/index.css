@@ -93,8 +93,8 @@ svg {
 }
 
 form {
-  display: flex;
-  flex-direction: column;
+  /* display: flex; */
+  /* flex-direction: column; */
   width: fit-content;
 }
 
@@ -108,9 +108,7 @@ form {
   cursor: pointer;
 }
 
-.list-container {
-  background: #eeaaaa;
-}
+
 
 .modal-bg {
   position: fixed;
@@ -127,7 +125,7 @@ form {
   position: fixed;
   background-color: #1a1a1a;
   opacity: 70%;
-  width: 100%;
+  width: 100vw;
   height: 100%;
 }
 
@@ -161,16 +159,87 @@ ul {
   left: 10%;
 }
 
-.new-list{
+.new-list {
   border-style: dashed;
   width: fit-content;
   padding: 2rem;
 }
+.master-list{
+  border-style: dashed;
+  padding: 2rem;
 
-.list-card{
-  width: fit-content;
-  background: #000;
 }
-svg{
+/* /APP */
+.list-container {
+  background: #eeaaaa;
+  display: flex;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  padding: 2rem;
+  margin-bottom: 5rem;
+}
+
+.list-card {
+  background-color: #bd5555;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Add drop shadow */
+  transition: transform 0.3s ease;
+  /* Add smooth transition */
   cursor: pointer;
+  overflow: hidden;
+  padding: 1rem ;
+  /* Ensure shadows are visible */
+}
+
+.list-card:hover {
+  transform: translateY(-4px);
+  /* Move card up slightly on hover */
+}
+.card-title{
+  text-transform: capitalize;
+}
+
+.main-container{
+  margin-left: 12rem;
+  margin-top: 4rem;
+}
+
+svg {
+  cursor: pointer;
+}
+
+.list-option-container{
+  display: flex;
+  gap: 2rem;
+  
+}
+
+.flex{
+  display: flex;
+  flex-direction: column;
+}
+
+.random-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: xx-large;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.quote-text{
+  margin: 0;
+}
+.quote-author{
+  font-size: x-large;
+  margin: 0;
+  margin-left: 8rem;
+}
+.rand-button{
+  font-size: medium;
+  padding-top: 1rem;
+}
+.title{
+  text-align: center;
 }
