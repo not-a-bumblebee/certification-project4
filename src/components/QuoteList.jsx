@@ -14,7 +14,7 @@ export default function QuoteList() {
 
     const [editData, setEditData] = useState(null)
     const [random, setRandom] = useState(null)
-    console.log();
+
     useEffect(() => {
         console.log("Use effects activated");
         function shuffleArray(array) {
@@ -23,11 +23,17 @@ export default function QuoteList() {
                 [array[i], array[j]] = [array[j], array[i]];
             }
         }
-        let quotes = [...redux.loaded[listId].quotes]
-        console.log(quotes);
-        shuffleArray(quotes)
-        console.log(quotes);
-        setRandom([quotes, 0])
+
+        if(redux.loaded[listId].quotes.length >0){
+
+            
+            let quotes = [...redux.loaded[listId].quotes]
+            
+            shuffleArray(quotes)
+            console.log(quotes);
+            setRandom([quotes, 0])
+        }
+            
         if (redux.loaded.length > 0) {
             handleSave()
         }
@@ -40,8 +46,15 @@ export default function QuoteList() {
 
     const handleSave = async () => {
         console.log("saving data");
-        let res = await axios("http://localhost:3001/api/save", { method: "post", data: redux.loaded })
+
+        let body = {
+            save: redux.loaded,
+            username: redux.user
+        }
+
+        let res = await axios("http://localhost:3001/api/save", { method: "post", data: body })
     }
+
 
     const handleCreate = (author, quote, category) => {
         console.log("adding new quote");
@@ -146,7 +159,8 @@ export default function QuoteList() {
     return (
         <>
             <Banner />
-            <Back destination={"/app"} />
+            <Back destination={"/list"} />
+
             <div className="random-container">
                 {random && (
                     <>

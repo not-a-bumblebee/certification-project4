@@ -77,12 +77,7 @@ button:focus-visible {
   }
 }
 
-header {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+
 
 .search {
   display: flex;
@@ -136,7 +131,7 @@ form {
 
 header {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-around;
   flex-direction: row;
   background: #f4f1ea;
   box-shadow: 0 0.1rem 0.2rem rgba(0, 0, 0, 0.15);
@@ -151,7 +146,19 @@ ul {
   margin-left: 5rem;
   gap: 10rem;
 }
-
+.current-user-container{
+  color: black;
+  display: flex;
+  background: greenyellow;
+  align-self: center;
+  justify-self: center;
+  /* font-size: large; */
+  gap: 1rem;
+}
+.current-user-container p{
+  font-size: larger;
+  font-weight: bold;
+}
 .intro {
   width: 50rem;
   height: 20rem;
@@ -278,3 +285,4 @@ svg {
 .quote-table{
   margin: 6rem;
 }
+

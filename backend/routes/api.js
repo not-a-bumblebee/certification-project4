@@ -16,14 +16,16 @@ router.post("/save", async (req, res) => {
     res.json(update)
 })
 
-router.get("/load", async (req, res) => {
+router.post("/load", async (req, res) => {
     let username = req.body.username
+    console.log(req.body);
+    console.log("Fetching user data for: " + username);
 
-    console.log("Fetching user save data");
+    let saveFile = await User.findOne({ username }, { _id: 0, 'masterList._id': 0, 'masterList.quotes._id': 0 }).exec()
 
-    let saveFile = await User.findOne({ username }).exec()
+    console.log(saveFile);
 
-    res.json(saveFile)
+    res.json(saveFile.masterList)
 })
 
 // return user 
@@ -39,10 +41,12 @@ router.post("/register", async (req, res) => {
         console.log("user doesn't exist, continuing!");
         let hash = await bcrypt.hash(password, saltRounds)
         let create = await User.create({ username: username, pw: hash })
-        res.json(create);
+        console.log("User created: " + create);
+        res.json({ auth: true });
     }
     else {
-        res.json({ error: "user already exists" });
+        console.log("Error: user already exists");
+        res.json({ auth: false, error: "user already exists" });
     }
     console.log(userExist);
 
@@ -62,7 +66,7 @@ router.post("/login", async (req, res) => {
 
     bcrypt.compare(password, userExist.pw, function (err, result) {
         if (result) {
-            res.json({ auth: true })
+            res.json({ auth: true, user: userExist.masterList })
         }
         else {
             res.json({ auth: false, error: "incorrect password" })

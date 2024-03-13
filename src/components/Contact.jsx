@@ -3,6 +3,9 @@ import Banner from "./Banner";
 
 export default function Contact() {
 
+
+
+
     return (
         <div>
             <Banner />

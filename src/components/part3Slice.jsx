@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    loaded: []
+    loaded: [],
+    user: ""
 }
 
 export const loadSlice = createSlice({
@@ -50,10 +51,19 @@ export const loadSlice = createSlice({
             temp[action.payload[0]].quotes.splice(action.payload[1], 1)
             state.loaded = [...temp]
         },
+        loginUser: (state, action) => {
+            state.user = action.payload;
+        },
+        logoutUser: (state, action) => {
+            state.user = ""
+            state.loaded = []
+            document.cookie="userCookie=0; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/;"
+
+        },
 
 
     }
 })
 
-export const { addList, deleteList, updateList, loadMasterList, addItem, updateItem, deleteItem } = loadSlice.actions
+export const { addList, deleteList, updateList, loadMasterList, addItem, updateItem, deleteItem, loginUser, logoutUser } = loadSlice.actions
 export default loadSlice.reducer
