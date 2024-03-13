@@ -3,8 +3,10 @@ const cors = require('cors'); // Necessary for localhost
 const app = express() // Creates an express application in app
 const apiRoute = require("./routes/api")
 const mongoose = require('mongoose');
+require('dotenv').config()
 
-const uri = "mongodb+srv://bilbo:dildo@charlie-cluster-7.ynbsj0r.mongodb.net/final-project?retryWrites=true&w=majority&appName=Charlie-Cluster-7"
+
+const uri = process.env.MONGO_URI
 
 mongoose.connect(uri)
     .then(() => console.log('Connected!'));
@@ -22,3 +24,7 @@ const PORT = 3001
 let server = app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
+if (process.env.NODE_ENV === 'test') {
+    // In test environment, export the app instance for testing
+    module.exports = { server, sequelize };
+}
