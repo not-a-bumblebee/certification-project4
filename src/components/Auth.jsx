@@ -17,7 +17,8 @@ export default function Auth() {
 
 
     const handleLogin = async () => {
-        errorRef.current.value = ""
+        console.log("Logging in");
+        errorRef.current.innerText = ""
         let body = {
             username: usernameRef.current.value.trim(),
             password: passwordRef.current.value
@@ -35,14 +36,15 @@ export default function Auth() {
                 throw new Error(res.data.error)
             }
         } catch (error) {
-            errorRef.current.value = error;
+            errorRef.current.innerText = error;
 
         }
 
     }
 
     const handleRegister = async () => {
-        errorRef.current.value = ""
+        console.log("Registering");
+        errorRef.current.innerText = ""
         let body = {
             username: usernameRef.current.value.trim(),
             password: passwordRef.current.value
@@ -50,7 +52,7 @@ export default function Auth() {
 
         try {
             let res = await axios("http://localhost:3001/api/register", { method: "post", data: body })
-
+            console.log(res);
             if (res.data.auth) {
                 dispatch(loginUser(body.username));
                 dispatch(loadMasterList(res.data.user))
@@ -63,20 +65,24 @@ export default function Auth() {
             }
 
         } catch (error) {
-            errorRef.current.value = error;
+            errorRef.current.innerText = error;
         }
 
     }
 
     return (
-        <div>
-            <form onSubmit={isLogin ? handleLogin : handleRegister}>
-                <p ref={errorRef} className="error-text"></p>
-                <input type="text" name="" id="" required />
-                <input type="password" name="" id="" required />
+        <div className="auth-container">
+
+            <h1>{!isLogin ? "Registering" : "Logging in"}</h1>
+            <form className="auth-form" onSubmit={(e) => { e.preventDefault(); isLogin ? handleLogin() : handleRegister() }}>
+                <p ref={errorRef} className="error-text red"></p>
+                <label htmlFor="">Username:</label>
+                <input ref={usernameRef} type="text" required />
+                <label htmlFor="">Password:</label>
+                <input ref={passwordRef} type="password" required />
                 <button>{isLogin ? "Login" : "Register"}</button>
             </form>
-            <button onClick={() => !isLogin ? setIsLogin(true) : setIsLogin(false)}>{!isLogin ? "sign in" : "sign up"}</button>
+            <button className="auth-swap-btn" onClick={() => !isLogin ? setIsLogin(true) : setIsLogin(false)}>{!isLogin ? "sign in" : "sign up"}</button>
         </div>
     )
 }

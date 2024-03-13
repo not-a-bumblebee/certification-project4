@@ -1,8 +1,14 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { logoutUser } from "./part3Slice";
 
 export default function Banner() {
     const redux = useSelector(state => state.load)
+    let dispatch = useDispatch()
+
+    const signOut = async () => {
+        dispatch(logoutUser())
+    }
 
     return (
         <header>
@@ -20,7 +26,7 @@ export default function Banner() {
             </ul>
             <div className="current-user-container">
                 <p>User: {redux.user}</p>
-                {redux.user && <button>Sign Out</button>}
+                {redux.user && <button onClick={signOut}>Sign Out</button>}
             </div>
         </header>
     )

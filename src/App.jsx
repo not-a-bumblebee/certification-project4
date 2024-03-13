@@ -95,7 +95,6 @@ export default function App() {
         {
             path: "/auth",
             element: <Auth />,
-            loader: handleAuth
         }
     ]);
 

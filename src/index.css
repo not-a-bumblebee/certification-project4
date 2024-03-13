@@ -2,7 +2,6 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  background-color: #53f253;
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
 
@@ -57,10 +56,7 @@ button:hover {
   border-color: #646cff;
 }
 
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
+
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -146,7 +142,8 @@ ul {
   margin-left: 5rem;
   gap: 10rem;
 }
-.current-user-container{
+
+.current-user-container {
   color: black;
   display: flex;
   background: greenyellow;
@@ -155,10 +152,12 @@ ul {
   /* font-size: large; */
   gap: 1rem;
 }
-.current-user-container p{
+
+.current-user-container p {
   font-size: larger;
   font-weight: bold;
 }
+
 .intro {
   width: 50rem;
   height: 20rem;
@@ -282,7 +281,48 @@ svg {
   width: 2rem;
 }
 
-.quote-table{
+.quote-table {
   margin: 6rem;
 }
 
+.auth-container {
+  /* background: #000; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  margin: auto;
+  justify-content: center;
+}
+
+/* AUTH */
+.auth-form {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  align-items: baseline;
+  gap: 0.6rem;
+  /* top: 50%; */
+  /* position: absolute; */
+  /* left: 50%; */
+  /* right: 50%; */
+  /* transform: translate(-50%, -50%); */
+  /* padding: 4rem; */
+  margin: 0 auto;
+
+}
+
+.auth-swap-btn {
+  border: none;
+  background: none;
+  padding: 0;
+  color: rgb(71, 135, 255);
+  margin-left: 8rem;
+  margin-top: 2rem;
+  outline: none;
+}
