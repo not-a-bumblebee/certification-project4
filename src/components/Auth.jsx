@@ -77,10 +77,10 @@ export default function Auth() {
             <form className="auth-form" onSubmit={(e) => { e.preventDefault(); isLogin ? handleLogin() : handleRegister() }}>
                 <p ref={errorRef} className="error-text red"></p>
                 <label htmlFor="">Username:</label>
-                <input ref={usernameRef} type="text" required />
+                <input ref={usernameRef} type="text" required data-testid="username" />
                 <label htmlFor="">Password:</label>
-                <input ref={passwordRef} type="password" required />
-                <button>{isLogin ? "Login" : "Register"}</button>
+                <input ref={passwordRef} type="password" required data-testid="pw" />
+                <button data-testid="submit">{isLogin ? "Login" : "Register"}</button>
             </form>
             <button className="auth-swap-btn" onClick={() => !isLogin ? setIsLogin(true) : setIsLogin(false)}>{!isLogin ? "sign in" : "sign up"}</button>
         </div>

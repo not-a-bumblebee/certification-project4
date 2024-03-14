@@ -4,7 +4,7 @@ const User = require('../models/models')
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
-router.post("/save", async (req, res) => {
+router.put("/save", async (req, res) => {
     let save = req.body.save;
     let username = req.body.username;
 
@@ -16,9 +16,9 @@ router.post("/save", async (req, res) => {
     res.json(update)
 })
 
-router.post("/load", async (req, res) => {
-    let username = req.body.username
-    console.log(req.body);
+router.get("/load", async (req, res) => {
+    let username = req.query.username
+    console.log(req.params);
     console.log("Fetching user data for: " + username);
 
     let saveFile = await User.findOne({ username }, { _id: 0, 'masterList._id': 0, 'masterList.quotes._id': 0 }).exec()
@@ -42,11 +42,11 @@ router.post("/register", async (req, res) => {
         let hash = await bcrypt.hash(password, saltRounds)
         let create = await User.create({ username: username, pw: hash })
         console.log("User created: " + create);
-        res.json({ auth: true });
+        res.status(201).json({ auth: true });
     }
     else {
         console.log("Error: user already exists");
-        res.json({ auth: false, error: "user already exists" });
+        res.status(400).json({ auth: false, error: "user already exists" });
     }
     console.log(userExist);
 
@@ -60,7 +60,7 @@ router.post("/login", async (req, res) => {
     let userExist = await User.findOne({ username: username }).exec();
 
     if (!userExist) {
-        return res.json({ auth: false, error: "User doesn't exist" });
+        return res.status(404).json({ auth: false, error: "User doesn't exist" });
 
     }
 
@@ -69,7 +69,7 @@ router.post("/login", async (req, res) => {
             res.json({ auth: true, user: userExist.masterList })
         }
         else {
-            res.json({ auth: false, error: "incorrect password" })
+            res.status(400).json({ auth: false, error: "incorrect password" })
         }
 
     })

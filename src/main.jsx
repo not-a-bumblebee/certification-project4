@@ -4,12 +4,7 @@ import Content from './components/List.jsx'
 import './index.css'
 import { Provider, useDispatch, useSelector } from 'react-redux'
 import { store } from './store.jsx'
-import { BrowserRouter, Route, RouterProvider, Routes, createBrowserRouter, useNavigate } from 'react-router-dom'
-import Contact from './components/Contact.jsx'
-import Home from './components/Home.jsx'
-import QuoteList from './components/QuoteList.jsx'
-import Banner from './components/Banner.jsx'
-import Auth from './components/Auth.jsx'
+
 import App from './App.jsx'
 
 // const redux = useSelector(state => state.load)

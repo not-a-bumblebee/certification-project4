@@ -21,7 +21,7 @@ export default function App() {
     //loads the json from the backend.
     const handleFetch = async (username) => {
         console.log("fetching for " + username);
-        let res = await axios("http://localhost:3001/api/load", { method: "post", data: { username: username } })
+        let res = await axios("http://localhost:3001/api/load", { params: { username: username } })
 
         console.log(res);
         dispatch(loadMasterList(res.data))
