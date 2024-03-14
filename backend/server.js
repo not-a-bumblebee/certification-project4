@@ -26,5 +26,5 @@ let server = app.listen(PORT, () => {
 });
 if (process.env.NODE_ENV === 'test') {
     // In test environment, export the app instance for testing
-    module.exports = { server, sequelize };
+    module.exports = { server, mongoose };
 }

@@ -196,7 +196,14 @@ export default function QuoteList() {
                         })}
                     </tbody>
                 </table>
-                {editData &&
+              
+
+                <AddQuote handleSubmit={handleCreate} />
+
+
+
+            </div>
+            {editData &&
                     (<div className="modal-bg">
                         <div onClick={() => setEditData(null)} className="modal-1" />
                         <div className="modal-body">
@@ -204,13 +211,6 @@ export default function QuoteList() {
                         </div>
 
                     </div>)}
-
-                <AddQuote handleSubmit={handleCreate} />
-
-
-
-            </div>
-
 
         </>
     )
