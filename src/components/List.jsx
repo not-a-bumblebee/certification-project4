@@ -33,7 +33,7 @@ export default function List() {
       username: redux.user
     }
 
-    let res = await axios("http://localhost:3001/api/save", { method: "put", data: body })
+    let res = await axios("/api/save", { method: "put", data: body })
   }
 
   const handleCreate = async () => {

@@ -51,7 +51,7 @@ export default function Auth() {
         }
 
         try {
-            let res = await axios("http://localhost:3001/api/register", { method: "post", data: body })
+            let res = await axios("/api/register", { method: "post", data: body })
             console.log(res);
             if (res.data.auth) {
                 dispatch(loginUser(body.username));
