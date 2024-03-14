@@ -94,7 +94,7 @@ describe('/register should fail', () => {
 
 
 afterAll(async () => {
-    // Closes connection after all tests run
+    
     await mongoose.disconnect()
     server.close()
 })

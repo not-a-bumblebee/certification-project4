@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter, Route, RouterProvider, Routes, createBrowserRouter, redirect, useNavigate } from "react-router-dom";
+import { RouterProvider, createBrowserRouter, redirect } from "react-router-dom";
 import { loadMasterList, loginUser } from "./components/part3Slice";
 import { useEffect } from "react";
 import Home from "./components/Home";
@@ -13,8 +13,7 @@ import List from "./components/List";
 export default function App() {
     const redux = useSelector(state => state.load)
     const dispatch = useDispatch()
-    // let navigate = useNavigate();
-    // redirect
+
 
 
     //Only do this is theres a cookie.
@@ -38,7 +37,6 @@ export default function App() {
         // If there are no users and no cookie session, redirect to login page.
         if (!document.cookie && !redux.user) {
             console.log("redirecting to login");
-            // navigate("/auth");
             return redirect("/auth");
         }
         // Loads session if there is a cookie, and there is no logged in user.
@@ -60,14 +58,6 @@ export default function App() {
 
     }, [])
 
-    const loader = async () => {
-        handleAuth()
-
-        if (!redux.user)
-            return redirect("/auth");
-
-        return null;
-    }
 
 
     const router = createBrowserRouter([
@@ -100,15 +90,6 @@ export default function App() {
 
     return (
         <RouterProvider router={router} />
-        // <BrowserRouter>
-        //     <Routes >
-        //         <Route path='/' element={<Home />} />
-        //         <Route path='/contact' element={<Contact />} />
-        //         <Route path='/app' element={<App />} />
-        //         <Route path='/app/list/:listId' element={<QuoteList />} />
-        //         <Route />
-        //     </Routes>
-        // </BrowserRouter>
     )
 
 

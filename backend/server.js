@@ -20,7 +20,7 @@ app.use("/api", apiRoute)
 
 
 const PORT = 3001
-// In other environments (e.g., development, production), start the server
+
 let server = app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
