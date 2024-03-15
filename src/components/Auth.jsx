@@ -24,7 +24,7 @@ export default function Auth() {
             password: passwordRef.current.value
         }
         try {
-            let res = await axios("http://localhost:3001/api/login", { method: "post", data: body })
+            let res = await axios("/api/login", { method: "post", data: body })
 
             if (res.data.auth) {
                 dispatch(loginUser(body.username));
