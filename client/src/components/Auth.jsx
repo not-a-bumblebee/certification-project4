@@ -4,6 +4,19 @@ import { useDispatch, useSelector } from "react-redux"
 import { loadMasterList, loginUser } from "./part3Slice"
 import { useNavigate } from "react-router-dom"
 
+// Page for logining in or registering.
+//  There's an error message to display what went wrong.
+//  button that changes state to toggle between login and register
+// redirected here if no cookie is found, or on logout.
+
+// Login fetches the user's lists and adds it to redux, then redirects them to home.
+// Login checks for the username, and password for matches in the db.
+
+// Register looks for the username in the db, if it doesn't exist then the user is registered
+// and their password is hashed and saved as that.
+
+// On success for either;  you're  assigned a  session cookie
+
 export default function Auth() {
     const [isLogin, setIsLogin] = useState(true)
 

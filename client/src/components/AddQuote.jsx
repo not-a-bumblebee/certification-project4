@@ -7,6 +7,8 @@ export default function AddQuote({ author, quote, category, handleSubmit }) {
     const categoryRef = useRef(null)
 
 
+    // USED FOR CREATING OR UPDATING QUOTES
+
     // GPT Here
     useEffect(() => {
         // Set initial values of the refs based on props once when the component mounts

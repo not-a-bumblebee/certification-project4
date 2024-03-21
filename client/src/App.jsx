@@ -10,6 +10,10 @@ import QuoteList from "./components/QuoteList";
 import Auth from "./components/Auth";
 import List from "./components/List";
 
+// Checks for cookies, redirects the user to /Auth if no cookie is found.
+// If a cookie is found, a request is made to the backend that uses the username stored in the
+// cookie to request their masterlist.
+
 export default function App() {
     const redux = useSelector(state => state.load)
     const dispatch = useDispatch()

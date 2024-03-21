@@ -7,6 +7,13 @@ import { addItem, deleteItem, updateItem } from "./part3Slice"
 import axios from "axios"
 import Back from "./Back"
 
+// Page detailing every quote in the list with options for crud stuff.
+// There's also a button to pick a random quote to View big.
+// IF any of the CRUD options are picked, it changes the redux state which causes 
+//  use effect to fire to backend to save those changes.
+
+
+
 export default function QuoteList() {
     let { listId } = useParams()
     const redux = useSelector(state => state.load)
