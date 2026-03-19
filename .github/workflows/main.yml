@@ -20,6 +20,8 @@ jobs:
           node-version: '20'
           
       - name: Install Dependencies and Build
+        env:
+          MONGO_URI: ${{ secrets.MONGO_URI }}
         run: |
           cd ./backend
           npm install
