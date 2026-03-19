@@ -28,7 +28,7 @@ jobs:
           npm run test
 
           
-          cd ../
+          cd ../client
           npm install
           npm run test
       
