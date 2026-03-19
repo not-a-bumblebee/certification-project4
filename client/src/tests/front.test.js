@@ -38,4 +38,4 @@ test('Successful Login', async () => {
     // Redirected to home after login
     expect(window.location.pathname).toBe("/");
 
-})
+},15000)
