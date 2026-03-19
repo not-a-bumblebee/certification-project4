@@ -8,7 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: boobs
+    environment: secrety
 
     steps:
       - name: Checkout Repository
